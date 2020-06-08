@@ -62,6 +62,7 @@ function searchDB() {
                     addDepartment();
                     break;
                 case "Add Role":
+                    addRole();
                     break;
                 case "Add Employee":
                     addEmployee();
@@ -104,14 +105,35 @@ function viewAllRoles() {
     
 }
 
-//function addDepartment() {
-//    connection.query("INSERT INTO department(name) VALUES (")
+function addDepartment() {
+    //connection.query("INSERT INTO department(department_name) VALUES (")
+    inquirer.prompt([{
+        name: "department",
+        type: "input",
+        message: "Add a New Department: "
+    }])
+        .then((res) => {
+            connection.query(`INSERT INTO department(department_name) VALUES ("${res.department}")`, (err, res) => {
+                if (err) throw err;
+                searchDB();
+            }
+        );
+    });
+}
+
+
+//function addRole() {
+//    inquirer.prompt([{
+//        name: "role",
+//        type: "input",
+//        message: "Add a New Role: "
+//    }])
+//        .then
 //}
 //
 //function addEmployee()
-//
-//function addRole()
-//
+
+
 //function updateEmployeeRole()
 // class activity animals_db for update syntax
 
