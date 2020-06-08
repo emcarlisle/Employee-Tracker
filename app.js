@@ -6,15 +6,22 @@ const connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "Untitled1229",
-    database: "employees_db"
+    database: "employeeinfo_db"
 });
 
 connection.connect(function (err) {
     if (err) throw err;
+    //console.table(results);
+    afterConnection();
     // connection.end();
 });
 
-
-
-
+function afterConnection() {
+    connection.query("SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+        console.log(res);
+        console.table(res);
+        connection.end();
+    });
+}
     
