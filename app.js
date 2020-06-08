@@ -103,3 +103,16 @@ function viewAllRoles() {
     })
     
 }
+
+//function addDepartment() {
+//    connection.query("INSERT INTO department(name) VALUES (")
+//}
+//
+//function addEmployee()
+//
+//function addRole()
+//
+//function updateEmployeeRole()
+// class activity animals_db for update syntax
+
+// class 12.2 activity 8 @ 1:54:00 for query async/await solution explained 2:08 multiple query/ console.table(res)
