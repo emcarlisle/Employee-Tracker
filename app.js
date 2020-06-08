@@ -27,9 +27,9 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-init();
+searchDB();
 
-function init() {
+function searchDB() {
     const exit = false
     inquirer
         .prompt({
@@ -75,4 +75,31 @@ function init() {
                     break;
             }
         })
+}
+// change name to department name
+function viewAllDepartments() {
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        searchDB();
+    })
+    
+}
+
+function viewAllEmployees() {
+    connection.query("SELECT * FROM employee", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        searchDB();
+    })
+    
+}
+
+function viewAllRoles() {
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        searchDB();
+    })
+    
 }
