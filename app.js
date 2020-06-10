@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const logo = require("asciiart-logo");
 
 
 const connection = mysql.createConnection({
@@ -10,28 +11,19 @@ const connection = mysql.createConnection({
     database: "employeeinfo_db"
 });
 
-//connection.connect(function (err) {
-//    if (err) throw err;
-//    //console.table(results);
-//    afterConnection();
-//    // connection.end();
-//});
-//
-//function afterConnection() {
-//    connection.query("SELECT * FROM products", function(err, res) {
-//        if (err) throw err;
-//        console.log(res);
-//        console.table(res);
-//        connection.end();
-//    });
-//}
 
 connection.connect();
 
+//runApp();
+//
+//function runApp() {
+//    const logoText = logo({ name: "Parks and Rec" }).render();
+//    console.log(logoText);
+//    searchDB();
+//}
 searchDB();
 
 function searchDB() {
-    const exit = false
     inquirer
         .prompt({
             type: "list",
@@ -71,23 +63,17 @@ function searchDB() {
                 case "Update Employee Role":
                     updateEmployeeRole();
                     break;
-                case "Exit":
-                    exit = true;
-                    connection.end();
+                default :
+                    exitApp();
                     break;
             }
         })
 }
 
-// function to view all database results
-//function queryData(query) {
-//    connection.query(query, (err, res) => {
-//        if (err) throw err;
-//        console.table(res);
-//        searchDB();
-//        return;
-//    })
-//}
+function exitApp() {
+    console.log("Ending Program!");
+    process.exit();
+}
 
 function viewAllDepartments() {
     connection.query("SELECT * FROM department", function (err, res) {
