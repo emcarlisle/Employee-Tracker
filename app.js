@@ -80,14 +80,14 @@ function searchDB() {
 }
 
 // function to view all database results
-function queryData(query) {
-    connection.query(query, (err, res) => {
-        if (err) throw err;
-        console.table(res);
-        searchDB();
-        return;
-    })
-}
+//function queryData(query) {
+//    connection.query(query, (err, res) => {
+//        if (err) throw err;
+//        console.table(res);
+//        searchDB();
+//        return;
+//    })
+//}
 
 function viewAllDepartments() {
     connection.query("SELECT * FROM department", function (err, res) {
@@ -111,7 +111,7 @@ function viewAllRoles() {
     connection.query("SELECT * FROM role", function (err, res) {
         if (err) throw err;
         console.table(res);
-        searchDB();
+        searchDB();``
     })
     
 }
@@ -136,7 +136,7 @@ function addDepartment() {
 
 
 function addRole() {
-    connection.query(`SELECT * FROM department`, (err, res) => {
+    connection.query(`SELECT * FROM department`, (err, department) => {
         if (err) throw err;
         const departmentList = department.map(d => {
             return {
@@ -157,12 +157,12 @@ function addRole() {
             },
             {
                 type: "list",
-                name: "department_id",
+                name: "department",
                 message: "What department would you like to add this to?",
                 choices: departmentList
             }
         ]).then((res) => {
-            connection.query(`INSERT INTO role (title, salary, department_id) VALUES ("${res.title}")`, `(${res.salary})`, `(${res.department_id}`, (err, res) => {
+            connection.query(`INSERT INTO role(title, salary, department_id) VALUES ("${res.title}","${res.salary}","${res.department}")`, (err, res) => {
                 if (err) throw err;
                 searchDB();
             })
