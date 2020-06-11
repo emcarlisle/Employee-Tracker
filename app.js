@@ -204,7 +204,51 @@ function addEmployee() {
 }
 
 
-//function updateEmployeeRole()
+function updateEmployeeRole() {
+    connection.query(`SELECT * FROM employee`, (err, employee) => {
+        if (err) throw err;
+        const allEmployees = employee.map(e => {
+            return {
+                name: `${e.first_name} ${e.last_name}`,
+                value: e.id
+            }
+        });
+        connection.query(`SELECT title, id FROM role`, (err, role) => {
+            if (err) throw err;
+            const updateRole = role.map(r => {
+                return {
+                    name: r.title,
+                    value: r.id
+                }
+            })
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        name: "employee",
+                        message: "Which Employee Role would you like to update?",
+                        choices: allEmployees
+                    },
+                    {
+                        name: "role",
+                        type: "list",
+                        message: "What role are you adding?",
+                        choices: updateRole
+                    }
+                ]).then((res) => {
+                    connection.query(`UPDATE employee SET role_id=${res.role} WHERE id=${res.employee}`, (err, res) => {
+                        if (err) throw err;
+                        searchDB();
+                    });
+                });
+        });
+        
+           
+    });
+}
+
+
+
 // class activity animals_db for update syntax
 
 // class 12.2 activity 8 @ 1:54:00 for query async/await solution explained 2:08 multiple query/ console.table(res)
